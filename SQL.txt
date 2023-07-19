@@ -1,0 +1,72 @@
+-- Wyświetl kolumny Id, Name, Population z tabeli City z ograniczeniem do 10 pierwszych wierszy
+SELECT Id, Name, Population 
+FROM world.city
+limit 10;
+
+-- Wyświetl kolumny Id, Name, Population z tabeli City z ograniczeniem do wierszy 31 - 40
+SELECT Id, Name, Population 
+FROM world.city
+limit 30, 10;
+
+-- Wyświetl te miata i ich populację z tabeli city, których populacja jest większa niż 2000000
+SELECT name, Population
+FROM world.city
+WHERE Population > 2000000;
+
+-- Wyświetl wszystkie miasta z tabeli city, których nazwa zaczyna się od "Be"
+SELECT Name
+FROM world.city
+WHERE Name LIKE 'Be%';
+
+-- Wyświetl wszystkie miasta z tabeli city, których populacja wynosi od 500000 do 1000000
+SELECT Name, Population
+FROM world.city
+WHERE Population BETWEEN 500000 AND 1000000;
+
+-- Wyświetl wszystkie miasta z tabeli city posortowane wg nazy rosnąco
+SELECT Name
+FROM world.city
+ORDER BY Name ASC;
+
+-- Wyświetl miasto z tabeli city o najniższej populacji
+SELECT MIN(world.city.Population)
+FROM world.city;
+
+-- Wyświetl miasto z tabeli city o najwyższej populacji
+SELECT MAX(world.city.Population)
+FROM world.city;
+
+-- Wyświetl państwo z najwyższą oczekiwaną długością życia
+SELECT world.country.Name
+FROM world.country
+ORDER BY world.country.LifeExpectancy DESC LIMIT 1;
+
+-- Wyświetl wszytskie miasta z kontynentu Europa
+SELECT world.country.Name
+FROM world.country
+WHERE world.country.Continent = 'Europe';
+
+-- Wyświetl aktualizację prezydenta USA po kolejnych wyborach prezydenckich
+UPDATE world.country SET world.country.HeadOfState = 'Donald Trump'
+WHERE world.country.Name = 'United States';
+
+-- Wyświetl najbardziej zaludnione miasto w tabeli city
+SELECT world.city.Population, world.city.Name 
+FROM world.city
+WHERE world.city.Population = (SELECT MAX(world.city.Population)
+FROM world.city);
+
+-- Wyświetl najmniej zaludnione miasto w tabeli city
+SELECT world.city.Population, world.city.Name 
+FROM world.city
+WHERE world.city.Population = (SELECT MIN(world.city.Population)
+FROM world.city);
+
+-- Wyświetl liczbę rekordów w tabeli city
+SELECT COUNT(*)
+FROM world.city;
+
+-- Wyświetl liczbę miast w Chinach
+SELECT COUNT(world.city.Name)
+FROM world.city
+WHERE world.city.CountryCode = 'CHN';
